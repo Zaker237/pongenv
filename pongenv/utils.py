@@ -6,6 +6,10 @@ class PongEnvException(Exception):
     pass
 
 
+class PongNumPlayersException(Exception):
+    pass
+
+
 class Action(IntEnum):
     STAY = 0  # NOOP
     MOVETOLEFT = 1
