@@ -7,12 +7,9 @@ import click
 import time
 
 import ponggame
-from pongenv.utils import (
-    Action,
-    NUM_ACTIONS,
-    PongEnvException,
-    PongNumPlayersException
-)
+from pongenv.utils import Action, NUM_ACTIONS
+from pongenv.exceptions import PongEnvException, PongNumPlayersException
+
 
 
 class PongEnv(Env):

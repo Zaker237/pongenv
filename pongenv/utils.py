@@ -1,13 +1,4 @@
-# from typing import Dict, List, Tuple
 from enum import IntEnum
-
-
-class PongEnvException(Exception):
-    pass
-
-
-class PongNumPlayersException(Exception):
-    pass
 
 
 class Action(IntEnum):
