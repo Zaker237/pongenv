@@ -1,0 +1,14 @@
+import pygame
+
+
+WIDTH = 700
+HEIGHT =  500
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 20
+BALL_RADUIS = 7
+SCORE_FONT = pygame.font.SysFont("comicsans", 20)
+WINNING_SCORE = 5
+START_TIME = 0
+TIME_ROUND = 1
