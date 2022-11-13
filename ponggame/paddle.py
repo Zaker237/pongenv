@@ -1,5 +1,6 @@
 import pygame
-from ponggame.utils import WHITE
+from ponggame.utils import WHITE, PADDLE_STATE
+
 
 class Paddle(object):
     COLOR = WHITE

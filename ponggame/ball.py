@@ -1,6 +1,7 @@
 import pygame
 from ponggame.utils import WHITE, BALL_STATE
 
+
 class Ball(object):
     MAX_VELOCITY = 5
     COLOR = WHITE
