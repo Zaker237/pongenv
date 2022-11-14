@@ -60,3 +60,29 @@ def handel_collision(ball: Ball, left_paddle: Paddle, right_paddle: Paddle):
                 reduction_factor = (right_paddle.height / 2) / ball.MAX_VELOCITY
                 y_vel = difference_in_y / reduction_factor
                 ball.y_velocity = -1 * y_vel
+
+
+def handle_time(ball: Ball, left_paddle: Paddle, right_paddle: Paddle, duration, time_rund):
+    if(duration//10 % 10 >= time_rund):
+        if left_paddle.VELOCITY >= 0:
+            left_paddle.VELOCITY += 1
+        else:
+            left_paddle.VELOCITY -= 1
+
+        if right_paddle.VELOCITY >= 0:
+            right_paddle.VELOCITY += 1
+        else:
+            right_paddle.VELOCITY -= 1
+
+        if ball.x_velocity >= 0:
+            ball.x_velocity += 1
+        else:
+            ball.x_velocity -= 1
+
+        if ball.y_velocity >= 0:
+            ball.y_velocity += 1
+        else:
+            ball.y_velocity -= 1
+        return 1
+    else:
+        return 0
