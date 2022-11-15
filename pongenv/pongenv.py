@@ -6,10 +6,12 @@ from gym.utils import seeding
 import click
 import time
 
-import ponggame
+from ponggame import PongGame
 from pongenv.utils import Action, NUM_ACTIONS
 from pongenv.exceptions import PongEnvException, PongNumPlayersException
 
+# The agent interacting with the environment is player 0
+AGENT_PLAYER = 0
 
 
 class PongEnv(Env):
