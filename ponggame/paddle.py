@@ -3,6 +3,15 @@ from ponggame.utils import WHITE, PADDLE_STATE
 
 
 class Paddle(object):
+    """The Paddle object represent the paddle used in pong game.
+
+    :param original_x: The original x position of the paddle on the game board.
+    :param original_y: The original y position of the paddle on the game board.
+    :param x: The current x position of the paddle on the game board.
+    :param y: The current y position of the paddle on the game board.
+    :param width: The width of of the paddle.
+    :param height: The height of of the paddle.
+    """
     COLOR = WHITE
     VELOCITY = 4
 

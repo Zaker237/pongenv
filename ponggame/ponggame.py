@@ -11,7 +11,7 @@ class PongGame(object):
     are playing again each other.
 
     :param num_players: The number of players, it will help when the game will
-                        have a computer player-
+                        have a computer player.
     :param win_score: The max scrore to teach, the first player to react it has win.
     :param game_width: The width of the game's windows.
     :param game_height: The height of the game's windows.
