@@ -1,11 +1,23 @@
 import numpy as np
-# from typing import Dict, List, Tuple
+from typing import Tuple
 from pongenv.utils import Action, NUM_ACTIONS
 from pongenv.exceptions import PongNumPlayersException, PongEnvException
-
+from ponggame.paddle import Paddle
+from ponggame.ball import Ball
 
 
 class PongGame(object):
+    """The PongGame object implement a pong game when 2 players
+    are playing again each other.
+
+    :param num_players:
+    :param win_score:
+    :param width:
+    :param height:
+    :param paddle_width:
+    :param paddle_height:
+    :param ball_raduis:
+    """
     def __init__(
         self,
         num_players: int,
