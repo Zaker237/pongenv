@@ -10,28 +10,43 @@ class PongGame(object):
     """The PongGame object implement a pong game when 2 players
     are playing again each other.
 
-    :param num_players:
-    :param win_score:
-    :param width:
-    :param height:
-    :param paddle_width:
-    :param paddle_height:
-    :param ball_raduis:
+    :param num_players: The number of players, it will help when the game will
+                        have a computer player-
+    :param win_score: The max scrore to teach, the first player to react it has win.
+    :param game_width: The width of the game's windows.
+    :param game_height: The height of the game's windows.
+    :param paddle_width: The width of each paddle in the game.
+    :param paddle_height: The height of each paddle in the game.
+    :param ball_raduis: The raduis of the ball.
     """
     def __init__(
         self,
-        num_players: int,
         rng: np.random.RandomState,
-        max_score: int = 10
+        num_players: int,
+        win_score: int = 10,
+        game_width: int = 700,
+        game_height: int = 100,
+        paddle_width: int = 100,
+        paddle_height: int = 20,
+        ball_raduis: float = 0.5
     ) -> None:
         if num_players < 1 or num_players > 2:
             raise PongNumPlayersException('num_players should be 1 or 2')
 
+        self.win_score = win_score
         self.finished = False
-
         self.num_players = num_players
-
         self.active_player = rng.choice(num_players)
+        self.game_width = game_width
+        self.game_height = game_height
+        self.paddle_width = paddle_width
+        self.paddle_height = paddle_height
+        self.ball_raduis = ball_raduis
+        self.init_game()
+
+    def init_game(self) ->None:
+        self.player1 = Paddle()
+        self.player2 = Paddle()
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]
