@@ -3,6 +3,12 @@ from ponggame.utils import WHITE, BALL_STATE
 
 
 class Ball(object):
+    """The Ball object represents the ball used in pong game.
+
+    :param x: The current x position of the paddle on the game board.
+    :param y: The current y position of the paddle on the game board.
+    :param raduis: The raduis of the ball.
+    """
     MAX_VELOCITY = 5
     COLOR = WHITE
 
