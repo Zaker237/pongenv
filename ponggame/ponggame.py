@@ -45,8 +45,23 @@ class PongGame(object):
         self.init_game()
 
     def init_game(self) ->None:
-        self.player1 = Paddle()
-        self.player2 = Paddle()
+        self.player1 = Paddle(
+            self.game_width//2 - self.paddle_width//2,
+            self.game_height - 10 - self.paddle_height,
+            self.paddle_width,
+            self.paddle_height
+        )
+        self.player2 = Paddle(
+            self.game_width//2 - self.paddle_width//2,
+            10,
+            self.paddle_width,
+            self.paddle_height
+        )
+        self.ball = Ball(
+            self.game_width // 2,
+            self.game_height // 2,
+            self.ball_raduis
+        )
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]
