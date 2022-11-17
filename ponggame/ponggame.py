@@ -58,13 +58,13 @@ class PongGame(object):
         self.init_game()
 
     def init_game(self) ->None:
-        self.player1 = Paddle(
+        self.top_paddle = Paddle(
             self.game_width//2 - self.paddle_width//2,
             self.game_height - 10 - self.paddle_height,
             self.paddle_width,
             self.paddle_height
         )
-        self.player2 = Paddle(
+        self.bottom_paddle = Paddle(
             self.game_width//2 - self.paddle_width//2,
             10,
             self.paddle_width,
@@ -82,7 +82,8 @@ class PongGame(object):
         return self.rng.choice(actions)
     
     def get_possible_actions(self) -> np.ndarray:
-        actions = np.zeros((self.num_players, NUM_ACTIONS), bool)  # for every player which action is possible
+        # for every player which action is possible
+        actions = np.zeros((self.num_players, NUM_ACTIONS), bool)
 
         return actions
 
@@ -100,3 +101,35 @@ class PongGame(object):
             raise PongEnvException("Not all Agent chosed an action!")
         if actions.sum() != self.num_players:
             raise PongEnvException("An Agent chosed mor than one action!")
+
+    # Games methods
+
+    def handel_collision(self):
+        # when the ball hits the right wall
+        if self.ball.x + self.ball.raduis >= self.game_width:
+            self.ball.y_velocity *= -1
+        # when the ball hits the right wall
+        elif self.ball.x - self.ball.raduis <= 0:
+            self.ball.y_velocity *= -1
+
+        if self.ball.y_velocity < 0:
+            if self.ball.x >= self.bottom_paddle.x and \
+                self.ball.x <= self.bottom_paddle.x * self.bottom_paddle.width:
+                if self.ball.y - self.ball.raduis <= self.bottom_paddle.y + self.bottom_paddle.height:
+                    self.ball.y_velocity *= -1
+
+                    middle_x = self.bottom_paddle.x + self.bottom_paddle.height / 2
+                    difference_in_x = middle_x - self.ball.x
+                    reduction_factor = (self.bottom_paddle.width / 2) / self.ball.MAX_VELOCITY
+                    x_vel = difference_in_x / reduction_factor
+                    self.ball.x_velocity = -1 * x_vel
+        else:
+            if self.ball.x >= self.top_paddle.x and self.ball.x <= self.top_paddle.x * self.top_paddle.width:
+                if self.ball.y + self.ball.raduis >= self.top_paddle.y:
+                    self.ball.y_velocity *= -1
+
+                    middle_x = self.top_paddle.x + self.top_paddle.width / 2
+                    difference_in_x = middle_x - self.ball.x
+                    reduction_factor = (self.top_paddle.width / 2) / self.ball.MAX_VELOCITY
+                    x_vel = difference_in_x / reduction_factor
+                    self.ball.x_velocity = -1 * x_vel
