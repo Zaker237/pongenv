@@ -30,8 +30,21 @@ class PongGame(object):
         paddle_height: int = 20,
         ball_raduis: float = 0.5
     ) -> None:
+        # check the number of player
         if num_players < 1 or num_players > 2:
             raise PongNumPlayersException('num_players should be 1 or 2')
+
+        #TODO: check paddel and ball dimension
+        if paddle_height > game_height or paddle_width > game_width:
+            raise ValueError(
+                "The Paddle dimmensions can't be higher than game the dimention"
+            )
+
+        if game_width - paddle_width < 200:
+            raise ValueError("the paddle is too large for the game dimensions.")
+
+        if paddle_height > 150:
+            raise ValueError("Too height paddle.")
 
         self.win_score = win_score
         self.finished = False
