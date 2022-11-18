@@ -21,9 +21,6 @@ class Paddle(object):
         self.width = width
         self.height = height
 
-    def draw(self, win) ->None:
-        pygame.draw.rect(win, self.COLOR, (self.x, self.y, self.width, self.height))
-
     def move(self, right: bool=True) -> None:
         if right:
             self.x -= self.VELOCITY
