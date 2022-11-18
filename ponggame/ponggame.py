@@ -88,6 +88,22 @@ class PongGame(object):
     def get_possible_actions(self) -> np.ndarray:
         # for every player which action is possible
         actions = np.zeros((self.num_players, NUM_ACTIONS), bool)
+        # Action.STEY is always availlable for all players
+        actions[:, Action.STAY] = True
+        # first player actions
+        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+            actions[0, Action.MOVETOLEFT] = True
+        elif (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+            actions[0, Action.MOVETORIGHT] = True
+        else:
+            actions[0, :] = True
+        # second player actions
+        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+            actions[1, Action.MOVETOLEFT] = True
+        elif (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+            actions[1, Action.MOVETORIGHT] = True
+        else:
+            actions[1, :] = True
 
         return actions
 
