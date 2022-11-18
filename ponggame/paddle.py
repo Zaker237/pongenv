@@ -24,11 +24,11 @@ class Paddle(object):
     def draw(self, win) ->None:
         pygame.draw.rect(win, self.COLOR, (self.x, self.y, self.width, self.height))
 
-    def move(self, up=True) -> None:
-        if up:
-            self.y -= self.VELOCITY
+    def move(self, right: bool=True) -> None:
+        if right:
+            self.x -= self.VELOCITY
         else:
-            self.y += self.VELOCITY
+            self.x += self.VELOCITY
 
     def reset(self) ->None:
         self.x = self.original_x
