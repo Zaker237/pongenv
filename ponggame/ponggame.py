@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from typing import Tuple
 from pongenv.utils import Action, NUM_ACTIONS
 from pongenv.exceptions import PongNumPlayersException, PongEnvException
@@ -55,6 +56,9 @@ class PongGame(object):
         self.paddle_width = paddle_width
         self.paddle_height = paddle_height
         self.ball_raduis = ball_raduis
+
+        # game start time
+        self.start_time = time.time()
         self.init_game()
 
     def init_game(self) ->None:
@@ -133,3 +137,9 @@ class PongGame(object):
                     reduction_factor = (self.top_paddle.width / 2) / self.ball.MAX_VELOCITY
                     x_vel = difference_in_x / reduction_factor
                     self.ball.x_velocity = -1 * x_vel
+
+    def handle_time(self):
+        # current duration
+        current_game_duration = time.time() - self.start_time
+        factor = (current_game_duration - (current_game_duration % 100)) / 100
+        self.ball.update_velocity(factor)
