@@ -1,4 +1,3 @@
-import pygame
 from ponggame.utils import WHITE, BALL_STATE
 
 

@@ -1,4 +1,3 @@
-import pygame
 from ponggame.utils import WHITE, PADDLE_STATE
 
 
