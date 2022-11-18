@@ -21,9 +21,6 @@ class Ball(object):
         self.x_velocity = self.MAX_VELOCITY
         self.y_velocity = 0
 
-    def draw(self, win) ->None:
-        pygame.draw.circle(win, self.COLOR, (self.x, self.y), self.raduis)
-
     def move(self) ->None:
         self.x += self.x_velocity
         self.y += self.y_velocity
