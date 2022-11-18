@@ -28,6 +28,9 @@ class Ball(object):
         self.x += self.x_velocity
         self.y += self.y_velocity
 
+    def update_velocity(self, factor) ->None:
+        pass
+
     def reset(self) ->None:
         self.x = self.original_x
         self.y = self.original_y
