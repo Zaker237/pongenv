@@ -1,7 +1,7 @@
 import pygame
-from ponggame import PongGame
-from ponggame.ball import Ball
-from ponggame.paddle import Paddle
+from ponggame import Ball, Paddle, PongGame
+from ponggame.utils import WIDTH, HEIGHT, PADDLE_HEIGHT, PADDLE_WIDTH
+from ponggame.utils import BALL_RADUIS, WHITE, BLACK, SCORE_FONT
 
 
 class PyGameBall(Ball):
