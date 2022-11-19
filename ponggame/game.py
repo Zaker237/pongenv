@@ -133,6 +133,10 @@ class PongGame(object):
                     x_vel = difference_in_x / reduction_factor
                     self.ball.x_velocity = -1 * x_vel
 
+    
+    def handel_paddel_movement(self):
+        pass
+
     def handle_time(self):
         # current duration
         current_game_duration = time.time() - self.start_time
