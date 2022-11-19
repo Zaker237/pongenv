@@ -1,8 +1,8 @@
 import numpy as np
 import time
-from typing import Tuple
+# from typing import Tuple
 from pongenv.utils import Action, NUM_ACTIONS
-from pongenv.exceptions import PongNumPlayersException, PongEnvException
+from pongenv.exceptions import PongEnvException
 from ponggame.paddle import Paddle
 from ponggame.ball import Ball
 
@@ -11,74 +11,53 @@ class PongGame(object):
     """The PongGame object implement a pong game when 2 players
     are playing again each other.
 
-    :param num_players: The number of players, it will help when the game will
-                        have a computer player.
+    :param ball: is the object that represent the ball.
+    :param botom_paddle: is the Paddle of the first player.
+    :param top_paddle: The Paddle of the second player.
     :param win_score: The max scrore to teach, the first player to react it has win.
     :param game_width: The width of the game's windows.
     :param game_height: The height of the game's windows.
-    :param paddle_width: The width of each paddle in the game.
-    :param paddle_height: The height of each paddle in the game.
-    :param ball_raduis: The raduis of the ball.
     """
+
+    Num_PLAYERS = 2
+
     def __init__(
         self,
+        ball: Ball,
+        top_paddle: Paddle,
+        botom_paddle: Paddle,
         rng: np.random.RandomState,
-        num_players: int,
         win_score: int = 10,
         game_width: int = 700,
-        game_height: int = 100,
-        paddle_width: int = 100,
-        paddle_height: int = 20,
-        ball_raduis: float = 0.5
+        game_height: int = 700
     ) -> None:
-        # check the number of player
-        if num_players < 1 or num_players > 2:
-            raise PongNumPlayersException('num_players should be 1 or 2')
 
         #TODO: check paddel and ball dimension
-        if paddle_height > game_height or paddle_width > game_width:
+        if top_paddle.height > game_height or botom_paddle.height > game_width:
             raise ValueError(
                 "The Paddle dimmensions can't be higher than game the dimention"
             )
 
-        if game_width - paddle_width < 200:
+        if game_width - top_paddle.width < 200 or game_width - botom_paddle.width < 200:
             raise ValueError("the paddle is too large for the game dimensions.")
 
-        if paddle_height > 150:
+        if top_paddle.height > 150 or botom_paddle.height > 150:
             raise ValueError("Too height paddle.")
 
         self.win_score = win_score
         self.finished = False
-        self.num_players = num_players
-        self.active_player = rng.choice(num_players)
+        self.active_player = rng.choice(self.Num_PLAYERS)
         self.game_width = game_width
         self.game_height = game_height
-        self.paddle_width = paddle_width
-        self.paddle_height = paddle_height
-        self.ball_raduis = ball_raduis
+
+        # ball and paddles
+        self.ball = ball
+        self.top_paddle = top_paddle
+        self.bottom_paddle = botom_paddle
 
         # game start time
         self.start_time = time.time()
         self.init_game()
-
-    def init_game(self) ->None:
-        self.top_paddle = Paddle(
-            self.game_width//2 - self.paddle_width//2,
-            self.game_height - 10 - self.paddle_height,
-            self.paddle_width,
-            self.paddle_height
-        )
-        self.bottom_paddle = Paddle(
-            self.game_width//2 - self.paddle_width//2,
-            10,
-            self.paddle_width,
-            self.paddle_height
-        )
-        self.ball = Ball(
-            self.game_width // 2,
-            self.game_height // 2,
-            self.ball_raduis
-        )
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]
@@ -91,16 +70,16 @@ class PongGame(object):
         # Action.STEY is always availlable for all players
         actions[:, Action.STAY] = True
         # first player actions
-        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width / 2) < 0.5:
             actions[0, Action.MOVETOLEFT] = True
-        elif (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+        elif (self.bottom_paddle.x + self.bottom_paddle.width / 2) < 0.5:
             actions[0, Action.MOVETORIGHT] = True
         else:
             actions[0, :] = True
         # second player actions
-        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+        if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width / 2) < 0.5:
             actions[1, Action.MOVETOLEFT] = True
-        elif (self.bottom_paddle.x + self.bottom_paddle.width // 2) < 0.5:
+        elif (self.bottom_paddle.x + self.bottom_paddle.width / 2) < 0.5:
             actions[1, Action.MOVETORIGHT] = True
         else:
             actions[1, :] = True
