@@ -7,8 +7,8 @@ import click
 import time
 
 from ponggame.game import PongGame
-from pongenv.utils import Action, NUM_ACTIONS
-from pongenv.exceptions import PongEnvException, PongNumPlayersException
+from gameenv.utils import Action, NUM_ACTIONS
+from gameenv.exceptions import PongEnvException, PongNumPlayersException
 
 # The agent interacting with the environment is player 0
 AGENT_PLAYER = 0

@@ -1,5 +1,5 @@
 
-from pongenv.utils import Action
+from gameenv.utils import Action
 
 import numpy as np
 from typing import Tuple

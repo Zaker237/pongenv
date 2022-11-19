@@ -1,8 +1,8 @@
 from gym.envs.registration import register
 
-from pongenv.utils import Action, NUM_ACTIONS
-from pongenv.pongenv import PongEnv
-from pongenv.agents import HumanAgent, RandomAgent
+from gameenv.utils import Action, NUM_ACTIONS
+from gameenv.pongenv import PongEnv
+from gameenv.agents import HumanAgent, RandomAgent
 
 register(
     id='PongEnv-Multi-v0',

@@ -1,8 +1,8 @@
 import numpy as np
 import time
 # from typing import Tuple
-from pongenv.utils import Action, NUM_ACTIONS
-from pongenv.exceptions import PongEnvException
+from gameenv.utils import Action, NUM_ACTIONS
+from gameenv.exceptions import PongEnvException
 from ponggame.paddle import Paddle
 from ponggame.ball import Ball
 
