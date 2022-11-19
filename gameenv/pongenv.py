@@ -6,7 +6,7 @@ from gym.utils import seeding
 import click
 import time
 
-from ponggame.game import PongGame
+from ponggame import PongGame
 from gameenv.utils import Action, NUM_ACTIONS
 from gameenv.exceptions import PongEnvException, PongNumPlayersException
 

@@ -7,7 +7,7 @@ from ponggame.paddle import Paddle
 from ponggame.ball import Ball
 
 
-class PongGame(object):
+class PongGame:
     """The PongGame object implement a pong game when 2 players
     are playing again each other.
 

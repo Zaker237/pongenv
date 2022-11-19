@@ -1,3 +1,3 @@
-from ponggame.game import PongGame
-from ponggame.ball import Ball
-from ponggame.paddle import Paddle
+from .game import PongGame
+from .ball import Ball
+from .paddle import Paddle
