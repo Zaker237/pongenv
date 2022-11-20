@@ -1,4 +1,4 @@
-from ponggame.utils import WHITE, BALL_STATE
+from typing import Tuple
 
 
 class Ball(object):
@@ -9,7 +9,6 @@ class Ball(object):
     :param raduis: The raduis of the ball.
     """
     MAX_VELOCITY = 5
-    COLOR = WHITE
 
     def __init__(self, x: int, y: int, raduis: float) ->None:
         self.original_x = x
@@ -34,7 +33,7 @@ class Ball(object):
         # self.x_velocity = self.MAX_VELOCITY
         self.y_velocity = 0
 
-    def as_state(self) ->BALL_STATE:
+    def as_state(self) ->Tuple[int, int, int, int]:
         return (
             self.x,
             self.y,

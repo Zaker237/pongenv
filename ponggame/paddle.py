@@ -1,5 +1,4 @@
-from ponggame.utils import WHITE, PADDLE_STATE
-
+from typing import Tuple
 
 class Paddle(object):
     """The Paddle object represents the paddle used in pong game.
@@ -9,7 +8,6 @@ class Paddle(object):
     :param width: The width of the paddle.
     :param height: The height of the paddle.
     """
-    COLOR = WHITE
     VELOCITY = 4
 
     def __init__(self, x: int, y: int, width: int, height: int) -> None:
@@ -30,7 +28,7 @@ class Paddle(object):
         self.x = self.original_x
         self.y = self.original_y
 
-    def as_state(self) ->PADDLE_STATE:
+    def as_state(self) ->Tuple[int, int, int, int]:
         return(
             self.x,
             self.y,
