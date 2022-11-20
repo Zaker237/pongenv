@@ -1,14 +1,18 @@
 import pygame
+pygame.init()
 import numpy as np
 from numpy.random import MT19937
 from numpy.random import RandomState, SeedSequence
 from typing import List
-from ponggame import Ball, Paddle, PongGame
+from ponggame.game import PongGame
+from ponggame.ball import Ball
+from ponggame.paddle import Paddle
 from ponggame.utils import WIDTH, HEIGHT, PADDLE_HEIGHT, PADDLE_WIDTH
-from ponggame.utils import BALL_RADUIS, WHITE, BLACK, SCORE_FONT
+from ponggame.utils import BALL_RADUIS, WHITE, BLACK
 
 
 class PyGameBall(Ball):
+    COLOR = (255, 255, 255)
     def __init__(self, x: int, y: int, raduis: float) -> None:
         super().__init__(x, y, raduis)
 
@@ -17,6 +21,7 @@ class PyGameBall(Ball):
 
 
 class PyGamePaddle(Paddle):
+    COLOR = (255, 255, 255)
     def __init__(self, x: int, y: int, width: int, height: int) -> None:
         super().__init__(x, y, width, height)
 
@@ -27,6 +32,7 @@ class PyGamePaddle(Paddle):
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pong")
+SCORE_FONT = pygame.font.SysFont("comicsans", 20)
 
 
 def draw(win, paddles: List[PyGamePaddle], ball: PyGameBall, bottom_score: int, top_score: int) ->None:
