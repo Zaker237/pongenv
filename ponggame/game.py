@@ -57,7 +57,6 @@ class PongGame:
 
         # game start time
         self.start_time = time.time()
-        self.init_game()
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]

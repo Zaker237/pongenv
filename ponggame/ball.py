@@ -16,8 +16,8 @@ class Ball(object):
         self.x = x
         self.y = y
         self.raduis = raduis
-        self.x_velocity = self.MAX_VELOCITY
-        self.y_velocity = 0
+        self.x_velocity = 0
+        self.y_velocity = self.MAX_VELOCITY
 
     def move(self) ->None:
         self.x += self.x_velocity
