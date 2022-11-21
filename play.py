@@ -32,16 +32,16 @@ class PyGamePaddle(Paddle):
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pong")
-SCORE_FONT = pygame.font.SysFont("comicsans", 20)
+SCORE_FONT = pygame.font.SysFont("comicsans", 40)
 
 
 def draw(win, paddles: List[PyGamePaddle], ball: PyGameBall, bottom_score: int, top_score: int) ->None:
     # fill the backgroud in black
     win.fill(BLACK)
-    bottom_score_text = SCORE_FONT.render(f"Score: {bottom_score}", 1, WHITE)
-    top_score_text = SCORE_FONT.render(f"Score: {top_score}", 1, WHITE)
-    win.blit(bottom_score_text, (WIDTH//4 - bottom_score_text.get_width()//2, 20))
-    win.blit(top_score_text, (WIDTH*(3/4) - top_score_text.get_width()//2, 20))
+    bottom_score_text = SCORE_FONT.render(f"{bottom_score}", 1, WHITE)
+    top_score_text = SCORE_FONT.render(f"{top_score}", 1, WHITE)
+    win.blit(top_score_text, (20, HEIGHT//2 - 10 - 20 - top_score_text.get_height()/2))
+    win.blit(bottom_score_text, (20, HEIGHT//2 - 10 + 20 + bottom_score_text.get_height()/2))
 
     for paddle in paddles:
         paddle.draw(win)
