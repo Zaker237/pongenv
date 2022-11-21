@@ -105,10 +105,10 @@ class PongGame:
     def handel_collision(self):
         # when the ball hits the right wall
         if self.ball.x + self.ball.raduis >= self.game_width:
-            self.ball.y_velocity *= -1
+            self.ball.x_velocity *= -1
         # when the ball hits the right wall
         elif self.ball.x - self.ball.raduis <= 0:
-            self.ball.y_velocity *= -1
+            self.ball.x_velocity *= -1
 
         if self.ball.y_velocity < 0:
             if self.ball.x >= self.bottom_paddle.x and \
