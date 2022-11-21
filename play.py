@@ -57,6 +57,18 @@ def draw(win, paddles: List[PyGamePaddle], ball: PyGameBall, bottom_score: int, 
     pygame.display.update()
 
 
+def handel_paddel_movement(keys, b_paddle: Paddle, t_paddle: Paddle):
+    if keys[pygame.K_d] and b_paddle.x - b_paddle.VELOCITY > 0:
+        b_paddle.move(right=True)
+    if keys[pygame.K_a] and b_paddle.x + b_paddle.VELOCITY + b_paddle.width <= WIDTH:
+        b_paddle.move(right=False)
+
+    if keys[pygame.K_RIGHT] and t_paddle.x - t_paddle.VELOCITY > 0:
+        t_paddle.move(right=True)
+    if keys[pygame.K_LEFT] and t_paddle.x + t_paddle.VELOCITY + t_paddle.width <= WIDTH:
+        t_paddle.move(right=False)
+
+
 def main() ->None:
     run = True
     clock = pygame.time.Clock()
@@ -103,10 +115,10 @@ def main() ->None:
         
         keys = pygame.key.get_pressed()
         
-        # handel_paddel_movement(keys, b_paddle, t_paddle)
+        handel_paddel_movement(keys, b_paddle, t_paddle)
 
         ball.move()
-        # handel_collision(ball, b_paddle, t_paddle)
+        game.handel_collision()
 
 
 
