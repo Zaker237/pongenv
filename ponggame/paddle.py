@@ -20,9 +20,9 @@ class Paddle(object):
 
     def move(self, right: bool=True) -> None:
         if right:
-            self.x -= self.VELOCITY
-        else:
             self.x += self.VELOCITY
+        else:
+            self.x -= self.VELOCITY
 
     def reset(self) ->None:
         self.x = self.original_x
