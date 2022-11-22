@@ -138,15 +138,19 @@ class PongGame:
             raise ValueError("The list of action should be a dict")
 
         # player bottom
-        if keys.get("bottom", Action.STAY) == Action.MOVETOLEFT:
+        if keys.get("bottom", Action.STAY) == Action.MOVETOLEFT and \
+                self.bottom_paddle.x + self.bottom_paddle.VELOCITY + self.bottom_paddle.width <= self.game_width:
             self.bottom_paddle.move(right=False)
-        if keys.get("bottom", Action.STAY) == Action.MOVETORIGHT:
+        if keys.get("bottom", Action.STAY) == Action.MOVETORIGHT and \
+                self.bottom_paddle.x - self.bottom_paddle.VELOCITY > 0:
             self.bottom_paddle.move(right=True)
 
         # player top
-        if keys.get("top", Action.STAY) == Action.MOVETOLEFT:
+        if keys.get("top", Action.STAY) == Action.MOVETOLEFT and \
+                self.top_paddle.x + self.top_paddle.VELOCITY + self.top_paddle.width <= self.game_width:
             self.top_paddle.move(right=False)
-        if keys.get("top", Action.STAY) == Action.MOVETORIGHT:
+        if keys.get("top", Action.STAY) == Action.MOVETORIGHT and \
+                self.top_paddle.x - self.top_paddle.VELOCITY > 0:
             self.top_paddle.move(right=True)
 
     def handle_time(self):
