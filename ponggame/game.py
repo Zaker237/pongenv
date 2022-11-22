@@ -137,16 +137,16 @@ class PongGame:
         if not isinstance(keys, dict):
             raise ValueError("The list of action should be a dict")
 
-        # player 1
-        if keys.get("p1", Action.STAY) == Action.MOVETOLEFT:
+        # player bottom
+        if keys.get("bottom", Action.STAY) == Action.MOVETOLEFT:
             self.bottom_paddle.move(right=False)
-        if keys.get("p1", Action.STAY) == Action.MOVETORIGHT:
+        if keys.get("bottom", Action.STAY) == Action.MOVETORIGHT:
             self.bottom_paddle.move(right=True)
 
-        # player 2
-        if keys.get("p2", Action.STAY) == Action.MOVETOLEFT:
+        # player top
+        if keys.get("top", Action.STAY) == Action.MOVETOLEFT:
             self.top_paddle.move(right=False)
-        if keys.get("p2", Action.STAY) == Action.MOVETORIGHT:
+        if keys.get("top", Action.STAY) == Action.MOVETORIGHT:
             self.top_paddle.move(right=True)
 
     def handle_time(self):
