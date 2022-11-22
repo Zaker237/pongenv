@@ -9,6 +9,7 @@ from ponggame.ball import Ball
 from ponggame.paddle import Paddle
 from ponggame.utils import WIDTH, HEIGHT, PADDLE_HEIGHT, PADDLE_WIDTH
 from ponggame.utils import BALL_RADUIS, WHITE, BLACK
+from gameenv.utils import Action
 
 
 class PyGameBall(Ball):
@@ -69,6 +70,21 @@ def handel_paddel_movement(keys, b_paddle: Paddle, t_paddle: Paddle):
         t_paddle.move(right=False)
 
 
+def concert_keys(keys):
+    results = {}
+    if keys[pygame.K_d]:
+        results["bottom"] = Action.MOVETORIGHT
+    if keys[pygame.K_a]:
+        results["bottom"] = Action.MOVETOLEFT
+
+    if keys[pygame.K_RIGHT]:
+        results["top"] = Action.MOVETORIGHT
+    if keys[pygame.K_LEFT]:
+        results["top"] = Action.MOVETOLEFT
+
+    return results
+
+
 def main() ->None:
     run = True
     clock = pygame.time.Clock()
@@ -115,8 +131,9 @@ def main() ->None:
         
         keys = pygame.key.get_pressed()
         
-        handel_paddel_movement(keys, b_paddle, t_paddle)
-
+        # handel_paddel_movement(keys, b_paddle, t_paddle)
+        game_keys = concert_keys(keys)
+        game.handel_paddel_movement(game_keys)
         ball.move()
         game.handel_collision()
 
