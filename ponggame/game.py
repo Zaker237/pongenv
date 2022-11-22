@@ -66,7 +66,7 @@ class PongGame:
     def get_possible_actions(self) -> np.ndarray:
         # for every player which action is possible
         actions = np.zeros((self.num_players, NUM_ACTIONS), bool)
-        # Action.STEY is always availlable for all players
+        # Action.STAY is always availlable for all players
         actions[:, Action.STAY] = True
         # first player actions
         if self.game_width - (self.bottom_paddle.x + self.bottom_paddle.width / 2) < 0.5:
@@ -100,7 +100,12 @@ class PongGame:
         if actions.sum() != self.num_players:
             raise PongEnvException("An Agent chosed mor than one action!")
 
-    # Games methods
+        # Games methods
+        keys = {"top": Action.STAY, "bottom": Action.STAY}
+        keys["top"] = possible_actions(1)
+        keys["bottom"] = possible_actions(0)
+
+        self.handel_paddel_movement(keys)
 
     def handel_collision(self):
         # when the ball hits the right wall
