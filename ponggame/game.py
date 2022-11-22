@@ -1,6 +1,6 @@
 import numpy as np
 import time
-# from typing import Tuple
+from typing import Dict
 from gameenv.utils import Action, NUM_ACTIONS
 from gameenv.exceptions import PongEnvException
 from ponggame.paddle import Paddle
@@ -133,8 +133,21 @@ class PongGame:
                     self.ball.x_velocity = -1 * x_vel
 
     
-    def handel_paddel_movement(self):
-        pass
+    def handel_paddel_movement(self, keys: Dict[str, Action]) ->None:
+        if not isinstance(keys, dict):
+            raise ValueError("The list of action should be a dict")
+
+        # player 1
+        if keys.get("p1", Action.STAY) == Action.MOVETOLEFT:
+            self.bottom_paddle.move(right=False)
+        if keys.get("p1", Action.STAY) == Action.MOVETORIGHT:
+            self.bottom_paddle.move(right=True)
+
+        # player 2
+        if keys.get("p2", Action.STAY) == Action.MOVETOLEFT:
+            self.top_paddle.move(right=False)
+        if keys.get("p2", Action.STAY) == Action.MOVETORIGHT:
+            self.top_paddle.move(right=True)
 
     def handle_time(self):
         # current duration
