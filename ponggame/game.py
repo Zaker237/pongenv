@@ -59,7 +59,7 @@ class PongGame:
         self.start_time = time.time()
 
         # player score
-        self.scores = np.zeros((1, 2), dtype=np.int16)
+        self.scores = np.zeros(2, dtype=np.int16)
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]
