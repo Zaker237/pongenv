@@ -170,10 +170,13 @@ class PongGame:
     def check_scores(self) ->bool:
         if self.ball.y < 0:
             self.scores += np.array([0, 1], np.int16)
+            self.ball.reset()
+            self.bottom_paddle.reset()
+            self.top_paddle.reset()
+            self.start_time = time.time()
         elif self.ball.y > self.game_height:
             self.scores += np.array([1, 0], dtype=np.int16)
-
-        self.ball.reset()
-        self.bottom_paddle.reset()
-        self.top_paddle.reset()
-        self.start_time = time.time()
+            self.ball.reset()
+            self.bottom_paddle.reset()
+            self.top_paddle.reset()
+            self.start_time = time.time()
