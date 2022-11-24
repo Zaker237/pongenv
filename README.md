@@ -24,13 +24,15 @@ The game can be play using the keyboard. The player at the top can move using **
 python3 play.py
 ```
 
+
 # Todo
 
-- [] implement the environement
-- [] optimize the collision check
-- [] write docstring for methods and classes
-- [] write the tests for the game
-- [] write the tests for the environement
+
+- [ ] implement the environment
+- [ ] optimize the collision check
+- [ ] write docstring for methods and classes
+- [ ] write the tests for the game
+- [ ] write the tests for the environement
 
 
 
