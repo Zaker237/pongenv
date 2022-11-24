@@ -36,11 +36,11 @@ pygame.display.set_caption("Pong")
 SCORE_FONT = pygame.font.SysFont("comicsans", 40)
 
 
-def draw(win, paddles: List[PyGamePaddle], ball: PyGameBall, bottom_score: int, top_score: int) ->None:
+def draw(win, paddles: List[PyGamePaddle], ball: PyGameBall, scores: np.ndarray) ->None:
     # fill the backgroud in black
     win.fill(BLACK)
-    bottom_score_text = SCORE_FONT.render(f"{bottom_score}", 1, WHITE)
-    top_score_text = SCORE_FONT.render(f"{top_score}", 1, WHITE)
+    bottom_score_text = SCORE_FONT.render(f"{scores[1]}", 1, WHITE)
+    top_score_text = SCORE_FONT.render(f"{scores[0]}", 1, WHITE)
     win.blit(top_score_text, (20, HEIGHT//2 - 10 - 20 - top_score_text.get_height()/2))
     win.blit(bottom_score_text, (20, HEIGHT//2 - 10 + 20 + bottom_score_text.get_height()/2))
 
@@ -117,12 +117,9 @@ def main() ->None:
         game_width=WIDTH
     )
 
-    b_score = 0
-    t_score = 0
-
     while run:
         clock.tick(FPS)
-        draw(WIN, [b_paddle, t_paddle], ball, b_score, t_score)
+        draw(WIN, [b_paddle, t_paddle], ball, game.scores)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -136,6 +133,7 @@ def main() ->None:
         game.handel_paddel_movement(game_keys)
         ball.move()
         game.handel_collision()
+        game.check_scores()
 
 
 
