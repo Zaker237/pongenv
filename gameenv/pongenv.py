@@ -17,7 +17,7 @@ AGENT_PLAYER = 0
 class PongEnv(Env):
     metadata = {'render.modes': ['human', 'rgb_array']}
 
-    def __init__(self, num_players: int, make_agents_cb=None, reward_fn='max') -> None:
+    def __init__(self, num_players: int, make_agents_cb=None) -> None:
         if num_players < 1 or num_players > 2:
             raise PongNumPlayersException('num_players should be 1 or 2')
 
@@ -28,26 +28,6 @@ class PongEnv(Env):
             if len(agents) != num_players:
                 raise ValueError('Must have same number of agents as players.')
             self.agents = agents
-
-        if reward_fn == 'max':
-            self.reward_fn = lambda sr, done: (sr - 184) / 184 if done else 0
-        elif reward_fn == 'step':
-            self.reward_fn = lambda sr, done: sr
-        elif reward_fn == 'win':
-            self.reward_fn = lambda sr, done: (1 if sr == self.get_scores().max() else -1) if done else 0
-        elif reward_fn == 'winmax':
-            def winmax_rew(sr, done):
-                if done:
-                    scores = self.get_scores()
-                    if sr == scores.max():
-                        best_two = scores[(-scores).argsort()[:2]]
-                        return best_two[0] - best_two[1]
-                    else:
-                        return scores[0] - scores.max()
-                return 0
-            self.reward_fn = winmax_rew
-        else:
-            self.reward_fn = reward_fn
 
         self.seed()
         self.viewer = None
