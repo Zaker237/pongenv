@@ -29,9 +29,9 @@ class Ball(object):
     def reset(self) ->None:
         self.x = self.original_x
         self.y = self.original_y
-        self.x_velocity *= -1
+        self.y_velocity *= -1
         # self.x_velocity = self.MAX_VELOCITY
-        self.y_velocity = 0
+        self.x_velocity = 0
 
     def as_state(self) ->Tuple[int, int, int, int]:
         return (
