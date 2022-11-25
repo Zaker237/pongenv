@@ -4,9 +4,7 @@ import numpy as np
 from numpy.random import MT19937
 from numpy.random import RandomState, SeedSequence
 from typing import List
-from ponggame.game import PongGame
-from ponggame.ball import Ball
-from ponggame.paddle import Paddle
+from ponggame.game import Ball, Paddle, PongGame
 from ponggame.utils import WIDTH, HEIGHT, PADDLE_HEIGHT, PADDLE_WIDTH
 from ponggame.utils import BALL_RADUIS, WHITE, BLACK
 from gameenv.utils import Action
