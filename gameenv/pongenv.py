@@ -33,6 +33,10 @@ class PongEnv(Env):
         self.viewer = None
         self.last_reward = 0
         self.action_space = spaces.Discrete(NUM_ACTIONS)  # see utils for list of all actions
+        self.tuple_spaces = spaces.Tuple(
+            self.game.as_state()
+        )
+        self.observation_space = spaces.flatten_space(self.tuple_spaces)
 
     def set_agents(self, agents):
         if len(agents) != self.num_players:

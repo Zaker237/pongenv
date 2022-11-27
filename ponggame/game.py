@@ -180,3 +180,6 @@ class PongGame:
             self.bottom_paddle.reset()
             self.top_paddle.reset()
             self.start_time = time.time()
+
+    def as_state(self):
+        return ()
