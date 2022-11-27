@@ -1,10 +1,11 @@
-
+import click
+import time
 import numpy as np
+from numpy.random import MT19937
+from numpy.random import RandomState, SeedSequence
 from gym import Env, spaces
 from gym.envs.classic_control import rendering
 from gym.utils import seeding
-import click
-import time
 
 import ponggame
 from gameenv.utils import Action, NUM_ACTIONS
@@ -12,7 +13,6 @@ from gameenv.exceptions import PongEnvException, PongNumPlayersException
 
 # The agent interacting with the environment is player 0
 AGENT_PLAYER = 0
-
 
 class PongEnv(Env):
     metadata = {'render.modes': ['human', 'rgb_array']}
@@ -60,29 +60,34 @@ class PongEnv(Env):
         self.observation_space = spaces.flatten_space(self.tuple_spaces)
 
     def init_game(self, **kwargs) ->None:
-        self.bottom_paddle = PyGamePaddle(
-            WIDTH//2 - PADDLE_WIDTH//2,
+        self.rng = RandomState(MT19937(SeedSequence(987654321)))
+        self.bottom_paddle = ponggame.Paddle(
+            ponggame.WIDTH//2 - ponggame.PADDLE_WIDTH//2,
             10,
-            PADDLE_WIDTH,
-            PADDLE_HEIGHT
+            ponggame.PADDLE_WIDTH,
+            ponggame.PADDLE_HEIGHT
         )
-        self.top_paddle = PyGamePaddle(
-            WIDTH//2 - PADDLE_WIDTH//2,
-            HEIGHT - 10 - PADDLE_HEIGHT,
-            PADDLE_WIDTH,
-            PADDLE_HEIGHT
+        self.top_paddle = ponggame.Paddle(
+            ponggame.WIDTH//2 - ponggame.PADDLE_WIDTH//2,
+            ponggame.HEIGHT - 10 - ponggame.PADDLE_HEIGHT,
+            ponggame.PADDLE_WIDTH,
+            ponggame.PADDLE_HEIGHT
         )
 
-        self.ball = PyGameBall(WIDTH//2, HEIGHT//2, BALL_RADUIS)
+        self.ball = ponggame.Ball(
+            ponggame.WIDTH//2,
+            ponggame.HEIGHT//2,
+            ponggame.BALL_RADUIS
+        )
 
-        self.game = PongGame(
-            ball,
-            t_paddle,
-            b_paddle,
-            rng,
+        self.game = ponggame.PongGame(
+            self.ball,
+            self.top_paddle,
+            self.bottom_paddle,
+            self.rng,
             win_score=10,
-            game_height=HEIGHT,
-            game_width=WIDTH
+            game_height=ponggame.HEIGHT,
+            game_width=ponggame.WIDTH
         )
 
     def set_agents(self, agents):
