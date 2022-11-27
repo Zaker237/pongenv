@@ -59,7 +59,7 @@ class PongGame:
         self.start_time = time.time()
 
         # player score
-        self.scores = np.zeros(2, dtype=np.int16)
+        self.scores = np.zeros(2, dtype=np.int8)
 
     def sample_action(self, player: int) -> Action:
         actions = np.array(Action)[self.get_possible_actions()[player]]
@@ -89,7 +89,7 @@ class PongGame:
         return actions
 
     def get_scores(self) -> np.ndarray:
-        scores = np.zeros((self.num_players, 1), dtype=np.int16)
+        scores = np.zeros((self.num_players, 1), dtype=np.int8)
 
         return scores.sum(1)
 
@@ -169,13 +169,13 @@ class PongGame:
 
     def check_scores(self) ->bool:
         if self.ball.y < 0:
-            self.scores += np.array([0, 1], np.int16)
+            self.scores += np.array([0, 1], np.int8)
             self.ball.reset()
             self.bottom_paddle.reset()
             self.top_paddle.reset()
             self.start_time = time.time()
         elif self.ball.y > self.game_height:
-            self.scores += np.array([1, 0], dtype=np.int16)
+            self.scores += np.array([1, 0], dtype=np.int8)
             self.ball.reset()
             self.bottom_paddle.reset()
             self.top_paddle.reset()
