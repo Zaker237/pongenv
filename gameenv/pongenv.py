@@ -17,7 +17,7 @@ AGENT_PLAYER = 0
 class PongEnv(Env):
     metadata = {'render.modes': ['human', 'rgb_array']}
 
-    def __init__(self, num_players: int, make_agents_cb=None) -> None:
+    def __init__(self, num_players: int, make_agents_cb=None, **kwargs) -> None:
         if num_players < 1 or num_players > 2:
             raise PongNumPlayersException('num_players should be 1 or 2')
 
@@ -33,9 +33,30 @@ class PongEnv(Env):
         self.viewer = None
         self.last_reward = 0
         self.action_space = spaces.Discrete(NUM_ACTIONS)  # see utils for list of all actions
-        self.tuple_spaces = spaces.Tuple(
-            self.game.as_state()
-        )
+        self.tuple_spaces = spaces.Tuple((
+            spaces.Discrete(num_players), # The active player
+            spaces.Box(low=False, high=True, shape=(2,), dtype=bool),
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # game width
+            spaces.Box(low=0, high=ponggame.HEIGHT, shape=(1,), dtype=np.uint8), # game heigth
+            # Ball
+            spaces.Box(low=0, high=50, shape=(1,), dtype=np.uint8), # raduis
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # x position
+            spaces.Box(low=0, high=ponggame.HEIGHT, shape=(1,), dtype=np.uint8), # y position
+            spaces.Box(low=0, high=10, shape=(1,), dtype=np.uint8), # x velocity
+            spaces.Box(low=0, high=10, shape=(1,), dtype=np.uint8), # y velocity
+            # Top Paddle
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # with
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # height
+            spaces.Box(low=0, high=ponggame.HEIGHT, shape=(1,), dtype=np.uint8), # x pos
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # x height
+            # Bottom Paddle
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # with
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # height
+            spaces.Box(low=0, high=ponggame.HEIGHT, shape=(1,), dtype=np.uint8), # x pos
+            spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # x height
+            # Score
+            spaces.Box(low=False, high=True, shape=(2,), dtype=np.int8),
+        ))
         self.observation_space = spaces.flatten_space(self.tuple_spaces)
 
     def set_agents(self, agents):
