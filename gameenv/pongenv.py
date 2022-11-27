@@ -59,6 +59,32 @@ class PongEnv(Env):
         ))
         self.observation_space = spaces.flatten_space(self.tuple_spaces)
 
+    def init_game(self, **kwargs) ->None:
+        self.bottom_paddle = PyGamePaddle(
+            WIDTH//2 - PADDLE_WIDTH//2,
+            10,
+            PADDLE_WIDTH,
+            PADDLE_HEIGHT
+        )
+        self.top_paddle = PyGamePaddle(
+            WIDTH//2 - PADDLE_WIDTH//2,
+            HEIGHT - 10 - PADDLE_HEIGHT,
+            PADDLE_WIDTH,
+            PADDLE_HEIGHT
+        )
+
+        self.ball = PyGameBall(WIDTH//2, HEIGHT//2, BALL_RADUIS)
+
+        self.game = PongGame(
+            ball,
+            t_paddle,
+            b_paddle,
+            rng,
+            win_score=10,
+            game_height=HEIGHT,
+            game_width=WIDTH
+        )
+
     def set_agents(self, agents):
         if len(agents) != self.num_players:
             raise ValueError("Must have same number of agents as players")
