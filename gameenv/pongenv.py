@@ -35,7 +35,7 @@ class PongEnv(Env):
         self.action_space = spaces.Discrete(NUM_ACTIONS)  # see utils for list of all actions
         self.tuple_spaces = spaces.Tuple((
             spaces.Discrete(num_players), # The active player
-            spaces.Box(low=False, high=True, shape=(2,), dtype=bool),
+            spaces.Box(low=False, high=True, shape=(num_players,), dtype=bool),
             spaces.Box(low=0, high=ponggame.WIDTH, shape=(1,), dtype=np.uint8), # game width
             spaces.Box(low=0, high=ponggame.HEIGHT, shape=(1,), dtype=np.uint8), # game heigth
             # Ball
@@ -101,7 +101,33 @@ class PongEnv(Env):
         return [seed]
 
     def get_observation_space(self, agent=0):
-        pass
+        return spaces.flatten(
+            self.tuple_spaces,
+            (
+                self.game.active_player,
+                (self.game.active_player + agent) % self.num_players,
+                self.game.game_width, # game width
+                self.game.game_height, # game heigth
+                # Ball
+                self.game.ball.raduis, # raduis
+                self.game.ball.x, # x position
+                self.game.ball.y, # y position
+                self.game.ball.x_velocity, # x velocity
+                self.game.ball.y_velocity, # y velocity
+                # Top Paddle
+                self.game.top_paddle.width, # with
+                self.game.top_paddle.height, # height
+                self.game.top_paddle.x, # x pos
+                self.game.top_paddle.y, # x height
+                # Bottom Paddle
+                self.game.bottom_paddle.width, # with
+                self.game.bottom_paddle.height, # height
+                self.game.bottom_paddle.x, # x pos
+                self.game.bottom_paddle.y, # x height
+                # Score
+                self.game.scores
+            )
+        )
 
     def get_score(self):
         """ Return the score of the the active Player. """
@@ -120,7 +146,6 @@ class PongEnv(Env):
         return self.game.get_possible_actions()[player]
 
     def step(self, action: int):
-        game = self.game
         valid = True
         chosen_actions = [action]
         for agent_id, agent in enumerate(self.agents[1:], 1):
@@ -134,7 +159,7 @@ class PongEnv(Env):
         try:
             actions = np.zeros((self.num_players, NUM_ACTIONS), bool)
             actions.put(np.array(chosen_actions) + np.arange(self.num_players * NUM_ACTIONS, step=NUM_ACTIONS), True)
-            step_reward = game.take_actions(actions)[AGENT_PLAYER]
+            step_reward = self.game.take_actions(actions)[AGENT_PLAYER]
             # self.last_reward = step_reward
             done = self.game.finished
             reward = self.reward_fn(step_reward, done)
@@ -145,7 +170,7 @@ class PongEnv(Env):
             # done = self.game.finished
 
         translated_actions = [Action(action).name for action in chosen_actions]
-        info = {'valid': valid, 'actions': translated_actions, 'scores': game.get_scores()}
+        info = {'valid': valid, 'actions': translated_actions, 'scores': self.game.get_scores()}
         return self.get_observation_space(), reward, done, info
 
     def reset(self):
