@@ -96,7 +96,7 @@ class PongEnv(Env):
 
     def seed(self, seed=None):
         self.rng, seed = seeding.np_random(seed)
-        self.game = ponggame.PongGame(self.num_players, self.rng)
+        self.init_game()
         return [seed]
 
     def get_observation_space(self, agent=0):
@@ -173,7 +173,7 @@ class PongEnv(Env):
         return self.get_observation_space(), reward, done, info
 
     def reset(self):
-        self.game = ponggame.PongGame(self.num_players, self.rng)
+        self.init_game()
         self.last_reward = 0
         return self.get_observation_space()
 
