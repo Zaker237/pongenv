@@ -49,6 +49,7 @@ class PongGame:
         self.active_player = rng.choice(self.Num_PLAYERS)
         self.game_width = game_width
         self.game_height = game_height
+        self.rng = rng
 
         # ball and paddles
         self.ball = ball
@@ -68,7 +69,7 @@ class PongGame:
     
     def get_possible_actions(self) -> np.ndarray:
         # for every player which action is possible
-        actions = np.zeros((self.num_players, NUM_ACTIONS), bool)
+        actions = np.zeros((2, NUM_ACTIONS), bool)
         # Action.STAY is always availlable for all players
         actions[:, Action.STAY] = True
         # first player actions
