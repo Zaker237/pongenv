@@ -1,7 +1,10 @@
-from gameenv import PongEnv
+from gameenv import PongEnv, RandomAgent
+
+seed = 0
 
 def test_gym_environment():
     env = PongEnv(2)
+    env.set_agents([RandomAgent(env, i, seed) for i in range(2)])
     obs = env.reset()
     total_reward = 0
     for _ in range(1000):
