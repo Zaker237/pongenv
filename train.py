@@ -29,8 +29,8 @@ def train(load_path, num_players):
     if load_path:
         model.load(Path(load_path).absolute())
 
-    random_agents = [RandomAgent(env, i + 1, SEED + i) for i in range(num_players - 1)]
-    agents = [model, *random_agents]
+    random_agent = RandomAgent(env, 1, SEED + 1)
+    agents = [model, random_agent]
     env.set_agents(agents)
 
     eval_callback = EvalCallback(env, best_model_save_path=LOGDIR, log_path=LOGDIR,

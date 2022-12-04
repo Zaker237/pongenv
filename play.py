@@ -134,6 +134,5 @@ def main() ->None:
         game.check_scores()
 
 
-
 if __name__ == "__main__":
     main()
